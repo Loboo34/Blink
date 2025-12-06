@@ -58,12 +58,10 @@ func Register(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-
 	utils.Logger.Info("Registration Successful")
 	utils.RespondWithJson(w, http.StatusCreated, "User created", map[string]interface{}{
 		"Name": req.FullName,
-	})
-	
+	})	
 }
 
 func Login(w http.ResponseWriter, r *http.Request){
@@ -71,7 +69,6 @@ func Login(w http.ResponseWriter, r *http.Request){
 		utils.RespondWithError(w, http.StatusMethodNotAllowed, "Only Post Allowed", "")
 		return
 	}
-
 
 	var req struct{
 		FullName string `json:"fullname"`

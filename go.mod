@@ -4,6 +4,7 @@ go 1.23.2
 
 require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/gorilla/websocket v1.5.3
 	github.com/joho/godotenv v1.5.1
 	go.mongodb.org/mongo-driver v1.17.6
 	go.uber.org/zap v1.27.1

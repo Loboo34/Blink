@@ -7,13 +7,13 @@ import (
 	"github.com/Loboo34/Blink/internal/utils"
 )
 
-// ctxKey is an unexported type for context keys defined in this package.
 type ctxKey string
 
 const (
 	claimsKey ctxKey = "claims"
 	userIDKey ctxKey = "userID"
 )
+
 
 func CheckAuth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
