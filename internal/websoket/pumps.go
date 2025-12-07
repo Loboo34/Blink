@@ -23,11 +23,11 @@ func (c *Client) readPump(){
 }
 
 
-func (c *client) writePump(){
+func (c *Client) writePump(){
 	defer c.Conn.Close()
 
-	for msg := range c.send {
-		 if err := c.conn.WriteJSON(msg); err != nil {
+	for msg := range c.Send {
+		 if err := c.Conn.WriteJSON(msg); err != nil {
             break
         }
 	}
