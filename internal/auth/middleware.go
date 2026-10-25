@@ -7,13 +7,12 @@ import (
 	"github.com/Loboo34/Blink/internal/utils"
 )
 
-type ctxKey string
+type CtxKey string
 
 const (
-	claimsKey ctxKey = "claims"
-	userIDKey ctxKey = "userID"
+	ClaimsKey CtxKey = "claims"
+	UserIDKey CtxKey = "userID"
 )
-
 
 func CheckAuth(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
@@ -38,8 +37,8 @@ func CheckAuth(next http.HandlerFunc) http.HandlerFunc {
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), claimsKey, claims)
-		ctx = context.WithValue(ctx, userIDKey, userID)
+		ctx := context.WithValue(r.Context(), ClaimsKey, claims)
+		ctx = context.WithValue(ctx, UserIDKey, userID)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	}
 }
