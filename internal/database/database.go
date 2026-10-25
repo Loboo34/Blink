@@ -2,6 +2,7 @@ package database
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"time"
 
@@ -12,8 +13,11 @@ import (
 var Client *mongo.Client
 var DB *mongo.Database
 
-func ConnectDB() *mongo.Database {
+func ConnectDB() (*mongo.Database, error) {
 	mongoUri := os.Getenv("MONGO_URI")
+	if mongoUri == "" {
+		return nil, fmt.Errorf("MONGO_URI environment variable is not set")
+	}
 
 	clientOptions := options.Client().ApplyURI(mongoUri)
 
@@ -22,17 +26,15 @@ func ConnectDB() *mongo.Database {
 
 	client, err := mongo.Connect(ctx, clientOptions)
 	if err != nil {
-		panic(err)
+		return nil, fmt.Errorf("failed to connect to MongoDB: %w", err)
 	}
 
-	err = client.Ping(ctx, nil)
-	if err != nil {
-		panic(err)
+	if err = client.Ping(ctx, nil); err != nil {
+		return nil, fmt.Errorf("failed to ping MongoDB: %w", err)
 	}
 
 	Client = client
 	DB = client.Database("blink")
 
-	return DB
-
+	return DB, nil
 }
